@@ -36,6 +36,7 @@ TextView value;
     @Override
     protected void onStart() {
         super.onStart();
+        sensorManager.registerListener(gyroListener, gyroSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -47,6 +48,7 @@ TextView value;
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        sensorManager.unregisterListener(gyroListener);
     }
 
     @Override
@@ -58,11 +60,13 @@ TextView value;
     @Override
     protected void onPause() {
         super.onPause();
+        sensorManager.unregisterListener(gyroListener);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        sensorManager.registerListener(gyroListener, gyroSensor,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -97,6 +101,10 @@ TextView value;
 
             value.setText("X: "+(int)x+" rad/s & "+"Y: "+(int)y+" rad/s & "+"Z: "+(int)z+" rad/s");
 
+            btn1.setRotation(x);
+            btn2.setRotation(y);
+            btn3.setRotation(z);
+
             if (x<-0.1) {
                 btn1.setBackgroundColor(Color.GREEN);
             } else if (x==0) {
@@ -121,11 +129,6 @@ TextView value;
                 String text = "The Z axis gyro went above 5";
                 Log.println(Log.DEBUG, "Z Axis", text);
             }
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int i) {
-
         }
     };
 
