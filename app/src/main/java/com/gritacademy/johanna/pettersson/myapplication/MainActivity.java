@@ -13,8 +13,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -97,18 +99,27 @@ TextView value;
 
             if (x<-0.1) {
                 btn1.setBackgroundColor(Color.GREEN);
-            } else if (x>0) {
+            } else if (x==0) {
                 btn1.setBackgroundColor(Color.GRAY);
+            }else if (x>5){
+                String text = "The X axis gyro went above 5";
+                Log.println(Log.DEBUG, "X Axis", text);
             }
             if (y<-0.1) {
                 btn2.setBackgroundColor(Color.RED);
-            }else if (y>0) {
+            }else if (y==0) {
                 btn2.setBackgroundColor(Color.GRAY);
+            } else if (y>5){
+                String text = "The Y axis gyro went above 5";
+                Log.println(Log.DEBUG, "Y Axis", text);
             }
             if (z<-0.1) {
                 btn3.setBackgroundColor(Color.BLUE);
-            }else if (z>0) {
+            }else if (z==1) {
                 btn3.setBackgroundColor(Color.GRAY);
+            }else if (z>5){
+                String text = "The Z axis gyro went above 5";
+                Log.println(Log.DEBUG, "Z Axis", text);
             }
         }
 
